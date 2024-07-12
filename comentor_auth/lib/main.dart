@@ -1,11 +1,11 @@
 import 'package:comentor_auth/screens/home_screens.dart';
 import 'package:comentor_auth/screens/login_screen.dart';
+import 'package:comentor_auth/screens/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-void main() async{
-
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final prefs = await SharedPreferences.getInstance();
   final token = prefs.getString('token');
@@ -21,11 +21,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const GetMaterialApp(
+    return GetMaterialApp(
       title: 'Flutter Demo',
-      home: LoginScreen()
-      
-    );  
+      home: initial,
+      getPages: [
+        GetPage(name: '/', page: () => const LoginScreen()),
+        GetPage(name: '/register', page: () => const RegisterScreen()),
+        GetPage(name: '/home', page: () => const HomeScreen()),
+      ],
+    );
   }
 }
-
